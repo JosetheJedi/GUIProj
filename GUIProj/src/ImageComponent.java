@@ -21,6 +21,7 @@ public class ImageComponent extends JComponent
 	private int ylocationDown = BOX_Y + BOX_HEIGHT;
 	
 	private BufferedImage image;
+	String fileLocation = "/Users/josehernandezuribe/Desktop/Project1 Pictures/duke_standing.gif";
 	
 	
 	// instantiating the component through the constructor
@@ -29,7 +30,7 @@ public class ImageComponent extends JComponent
 		try
 		{
 			//image = ImageIO.read(new File("C:\\Users\\Josef\\Desktop\\for gui project\\additionalGUI\\Project1 Pictures\\duke_standing.gif"));
-			image = ImageIO.read(new File("/Users/josehernandezuribe/Desktop/Project1 Pictures/duke_standing.gif"));
+			image = ImageIO.read(new File(fileLocation));
 		}
 		catch(IOException e)
 		{
@@ -93,6 +94,22 @@ public class ImageComponent extends JComponent
 		this.ylocationDown += ylocationDown;
 	}
 	
+	
+	public void changeImage(String fileLocation)
+	{
+		this.fileLocation = fileLocation;
+		
+		try
+		{
+			//image = ImageIO.read(new File("C:\\Users\\Josef\\Desktop\\for gui project\\additionalGUI\\Project1 Pictures\\duke_standing.gif"));
+			image = ImageIO.read(new File(fileLocation));
+		}
+		catch(IOException e)
+		{
+			System.out.println("File not found");
+		}
+		repaint();
+	}
 	
 	
 	
