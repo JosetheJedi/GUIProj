@@ -7,7 +7,7 @@ public class ImagePlayer
 	{
 		JFrame frame = new ImageMaker();
 		
-		frame.setResizable(false);	// does not allow user to move screen
+		frame.setResizable(true);	// does not allow user to move screen
 		frame.setTitle("Image Component Viewer");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
