@@ -1,10 +1,16 @@
+import javax.swing.JFrame;
 
 public class ImagePlayer 
 {
 
-	public static void main(String[] args)
+	public static void main(String[] args) 
 	{
-		// TODO Auto-generated method stub
+		JFrame frame = new ImageMaker();
+		
+		frame.setResizable(false);	// does not allow user to move screen
+		frame.setTitle("Image Component Viewer");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
 
 	}
 
