@@ -32,9 +32,9 @@ public class ImageMaker extends JFrame
 	private int clicks = 0;				// the number of clicks the user makes
 	private int speed = 35;			// the speed of the component
 
-	String file1 = "/Users/josehernandezuribe/Desktop/Project1 Pictures/duke_standing.gif";
-	String file2 = "/Users/josehernandezuribe/Desktop/Project1 Pictures/duke_waving.gif";
-	String file3 = "/Users/josehernandezuribe/Desktop/Project1 Pictures/smiley.gif";
+	String file1 = "resources/duke_standing.gif";
+	String file2 = "resources/duke_waving.gif";
+	String file3 = "resources/smiley.gif";
 	
 	ImageIcon icon1;
 	ImageIcon icon2;
