@@ -1,10 +1,7 @@
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
@@ -12,8 +9,8 @@ public class ImageComponent extends JComponent
 {
 	private static final int BOX_X = 100;
 	private static final int BOX_Y = 100;
-	private static final int BOX_WIDTH = 100;
-	private static final int BOX_HEIGHT = 100;
+	private static final int BOX_WIDTH = 50;
+	private static final int BOX_HEIGHT = 50;
 	
 	private int xlocationRight = BOX_X + BOX_WIDTH;
 	private int xlocationLeft = BOX_X;
@@ -43,7 +40,7 @@ public class ImageComponent extends JComponent
 	{
 
 		super.paintComponent(g);
-        g.drawImage(image, xlocationLeft, ylocationTop, null);
+        g.drawImage(image, xlocationLeft, ylocationTop, BOX_WIDTH, BOX_HEIGHT, null);
 	}
 	
 	/**

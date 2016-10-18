@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -69,7 +68,7 @@ public class ImageMaker extends JFrame
 			locationYD = compDisplay.getYlocationDown();
 			
 			// get panel size
-			panelsize = new Rectangle(divider.getBounds());
+			panelsize = new Rectangle(compDisplay.getBounds());
 			
 			// debugging purpose only
 			//System.out.println(panelsize.toString());
@@ -199,6 +198,7 @@ public class ImageMaker extends JFrame
 	{
 		// instantiate a new component to display
 		compDisplay = new ImageComponent();
+		compDisplay.setBorder(new TitledBorder(new EtchedBorder(), "Play Area"));
 		
 		rListener = new ChoiceListener();
 		
@@ -220,7 +220,7 @@ public class ImageMaker extends JFrame
 		// Timer listener instantiation.
 		listener = new TimerListener();
 		
-		// mouselistener instantiation
+		// mouse listener instantiation
 		clicking = new Clicker();
 		
 		// adding a mouse listener to the printing area
