@@ -28,8 +28,8 @@ public class ImageComponent extends JComponent
 	{
 		try
 		{
-			image = ImageIO.read(new File("C:\\Users\\Josef\\Desktop\\for gui project\\additionalGUI\\Project1 Pictures\\duke_standing.gif"));
-			//image = ImageIO.read(new File("/Users/josehernandezuribe/Desktop/Project1 Pictures/duke_standing.gif"));
+			//image = ImageIO.read(new File("C:\\Users\\Josef\\Desktop\\for gui project\\additionalGUI\\Project1 Pictures\\duke_standing.gif"));
+			image = ImageIO.read(new File("/Users/josehernandezuribe/Desktop/Project1 Pictures/duke_standing.gif"));
 		}
 		catch(IOException e)
 		{
