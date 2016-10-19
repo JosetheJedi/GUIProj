@@ -30,6 +30,9 @@ public class ImageMaker extends JFrame
 	private JMenuItem image1;			// first image item the player can choose from
 	private JMenuItem image2;			// second image item the player can choose from
 	private JMenuItem image3;			// third image item the player can choose from
+	private JMenuItem image4;
+	private JMenuItem image5;
+	private JMenuItem image6;
 	private int clicks = 0;				// the number of clicks the user makes
 	private int speed = 1500;			// the speed of the component
 	private Random randx;				// to generate a random x location
@@ -38,10 +41,16 @@ public class ImageMaker extends JFrame
 	String file1 = "resources/duke_standing.gif";	// string location of the first image
 	String file2 = "resources/duke_waving.gif";		// string location of the second image
 	String file3 = "resources/smiley.gif";			// string location of the third image
+	String file4 = "resources/bart.png";
+	String file5 = "resources/donut.png";
+	String file6 = "resources/mew.png";
 	
 	ImageIcon icon1;	// will hold the 1st icon of the radio button
 	ImageIcon icon2;	// will hold the 2nd icon of the radio button
 	ImageIcon icon3; 	// will hold the 3rd icon of the radio button
+	ImageIcon icon4;
+	ImageIcon icon5;
+	ImageIcon icon6;
 	
 	ActionListener listener;	// Listener for the time change
 	MouseListener clicking;		// Listener for mouse events
@@ -142,7 +151,19 @@ public class ImageMaker extends JFrame
 			else if(e.getActionCommand().equalsIgnoreCase("smiley"))
 			{
 				compDisplay.changeImage(file3);
-			}			
+			}		
+			else if(e.getActionCommand().equalsIgnoreCase("Bart"))
+			{
+				compDisplay.changeImage(file4);
+			}
+			else if(e.getActionCommand().equalsIgnoreCase("Donut"))
+			{
+				compDisplay.changeImage(file5);
+			}
+			else if(e.getActionCommand().equalsIgnoreCase("Mew"))
+			{
+				compDisplay.changeImage(file6);
+			}
 		}
 	}
 	
@@ -248,6 +269,9 @@ public class ImageMaker extends JFrame
 		icon1 = new ImageIcon(file1);
 		icon2 = new ImageIcon(file2);
 		icon3 = new ImageIcon(file3);
+		icon4 = new ImageIcon(file4);
+		icon5 = new ImageIcon(file5);
+		icon6 = new ImageIcon(file6);
 		
 	}
 	
@@ -263,10 +287,16 @@ public class ImageMaker extends JFrame
 		image1 = new JMenuItem("Standing", icon1);
 		image2 = new JMenuItem("Waving", icon2);
 		image3 = new JMenuItem("Smiley", icon3);
+		image4 = new JMenuItem("Bart", icon4);
+		image5 = new JMenuItem("Donut", icon5);
+		image6 = new JMenuItem("Mew", icon6);
 		
 		imagesMenu.add(image1);
 		imagesMenu.add(image2);
 		imagesMenu.add(image3);
+		imagesMenu.add(image4);
+		imagesMenu.add(image5);
+		imagesMenu.add(image6);
 		
 		// adding an action listener to all the radio buttons
 		// so that when a button is selected, the program renders the
@@ -274,6 +304,9 @@ public class ImageMaker extends JFrame
 		image1.addActionListener(rListener);
 		image2.addActionListener(rListener);
 		image3.addActionListener(rListener);
+		image4.addActionListener(rListener);
+		image5.addActionListener(rListener);
+		image6.addActionListener(rListener);
 	}
 	
 	
