@@ -9,8 +9,8 @@ public class ImageComponent extends JComponent
 {
 	private static final int BOX_X = 100;
 	private static final int BOX_Y = 100;
-	private static final int BOX_WIDTH = 100;
-	private static final int BOX_HEIGHT = 100;
+	private static final int BOX_WIDTH = 75;
+	private static final int BOX_HEIGHT = 75;
 	
 	private int xlocationRight = BOX_X + BOX_WIDTH;
 	private int xlocationLeft = BOX_X;
