@@ -9,8 +9,8 @@ public class ImageComponent extends JComponent
 {
 	private static final int BOX_X = 100;
 	private static final int BOX_Y = 100;
-	private static final int BOX_WIDTH = 50;
-	private static final int BOX_HEIGHT = 50;
+	private static final int BOX_WIDTH = 100;
+	private static final int BOX_HEIGHT = 100;
 	
 	private int xlocationRight = BOX_X + BOX_WIDTH;
 	private int xlocationLeft = BOX_X;
@@ -47,12 +47,12 @@ public class ImageComponent extends JComponent
 	 * @param dx the amount to move in direction x
 	 * @param dy the amount to move in direction y
 	 */
-	public void moveImageBy(int dx, int dy)
+	public void moveImageTo(int dx, int dy)
 	{
-		setXlocationRight(dx);
 		setXlocationLeft(dx);
+		setXlocationRight();
 		setYlocationTop(dy);
-		setYlocationDown(dy);
+		setYlocationDown();
 		repaint();
 	}
 
@@ -61,17 +61,16 @@ public class ImageComponent extends JComponent
 		return xlocationRight;
 	}
 
-	private void setXlocationRight(int xlocationRight) 
-	{
-		this.xlocationRight += xlocationRight;
-	}
-
 	public int getXlocationLeft() {
 		return xlocationLeft;
 	}
+	
+	private void setXlocationRight(){
+		xlocationRight = xlocationLeft + BOX_WIDTH;
+	}
 
 	private void setXlocationLeft(int xlocationLeft) {
-		this.xlocationLeft += xlocationLeft;
+		this.xlocationLeft = xlocationLeft;
 	}
 
 	public int getYlocationTop() {
@@ -79,16 +78,18 @@ public class ImageComponent extends JComponent
 	}
 
 	private void setYlocationTop(int ylocationTop) {
-		this.ylocationTop += ylocationTop;
+		this.ylocationTop = ylocationTop;
+	}
+	
+	private void setYlocationDown()
+	{
+		this.ylocationDown = ylocationTop + BOX_HEIGHT;
 	}
 
 	public int getYlocationDown() {
 		return ylocationDown;
 	}
 
-	private void setYlocationDown(int ylocationDown) {
-		this.ylocationDown += ylocationDown;
-	}
 	
 	
 	public void changeImage(String fileLocation)
@@ -105,6 +106,16 @@ public class ImageComponent extends JComponent
 		}
 		repaint();
 	}
+
+	public static int getBoxWidth() {
+		return BOX_WIDTH;
+	}
+
+	public static int getBoxHeight() {
+		return BOX_HEIGHT;
+	}
+	
+	
 	
 	
 	
