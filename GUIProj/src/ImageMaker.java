@@ -1,101 +1,87 @@
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.ButtonGroup;
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.Timer;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 public class ImageMaker extends JFrame
 {
-	private static final int FRAME_WIDTH = 450;
-	private static final int FRAME_HEIGHT = 450;
+	private static final int FRAME_WIDTH = 1000;
+	private static final int FRAME_HEIGHT = 1000;
 	
 	private ImageComponent compDisplay;	// the component that will be displayed and moved
 	private JPanel divider;				// the panel that divides the score label from the paint area
-	private JPanel topSection;
-	private JPanel buttonPanel;
+	private JPanel topSection;			// Panel that will hold everything for the north border
 	private JLabel score;				// the label of the current score
-	private ButtonGroup buttons;
-	private JRadioButton first;
-	private JRadioButton second;
-	private JRadioButton third;
+	private JMenuBar menuBar;			// menu bar to hold image menu
+	private JMenu imagesMenu;			// image menu that will hold possible images to use
+	private JMenuItem image1;			// first image item the player can choose from
+	private JMenuItem image2;			// second image item the player can choose from
+	private JMenuItem image3;			// third image item the player can choose from
 	private int clicks = 0;				// the number of clicks the user makes
-	private int speed = 35;			// the speed of the component
+	private int speed = 1500;			// the speed of the component
+	private Random randx;				// to generate a random x location
+	private Random randy;				// to generate a random y location
 
-	String file1 = "resources/duke_standing.gif";
-	String file2 = "resources/duke_waving.gif";
-	String file3 = "resources/smiley.gif";
+	String file1 = "resources/duke_standing.gif";	// string location of the first image
+	String file2 = "resources/duke_waving.gif";		// string location of the second image
+	String file3 = "resources/smiley.gif";			// string location of the third image
 	
-	ImageIcon icon1;
-	ImageIcon icon2;
-	ImageIcon icon3; 
+	ImageIcon icon1;	// will hold the 1st icon of the radio button
+	ImageIcon icon2;	// will hold the 2nd icon of the radio button
+	ImageIcon icon3; 	// will hold the 3rd icon of the radio button
 	
-	
-	
-	private Rectangle panelsize;
-	
-	private int moveByX = 1;
-	private int moveByY = 1;
-	
-	ActionListener listener;
-	MouseListener clicking;
-	ActionListener rListener;
-	Timer t;
+	ActionListener listener;	// Listener for the time change
+	MouseListener clicking;		// Listener for mouse events
+	ActionListener rListener;	// Listener for radio button events
+	Timer t;					// object for the timer to keep the pace of the moving image
 	
 	class TimerListener implements ActionListener
 	{
+		// instantiating xbound and ybound
+		int xBound = 0;
+		int yBound = 0;
 		
-		int locationXR = 0;
-		int locationXL = 0;
-		int locationYT = 0;
-		int locationYD = 0;
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			locationXR = compDisplay.getXlocationRight();
-			locationXL = compDisplay.getXlocationLeft();
-			locationYT = compDisplay.getYlocationTop();
-			locationYD = compDisplay.getYlocationDown();
+			// the xBound is the highest position x can be
+			// this bound will be used for the random x generator
+			// so that it won't select a random value bigger than
+			// the panel width
+			xBound = compDisplay.getWidth() - ImageComponent.getBoxWidth();
+			// the yBound is the highest position y can be
+			// this bound will be used for the random y generator
+			// so that it won't select a random value bigger than
+			// the panel height
+			yBound = compDisplay.getHeight() - ImageComponent.getBoxHeight();
 			
-			// get panel size
-			panelsize = new Rectangle(compDisplay.getBounds());
 			
-			// debugging purpose only
-			//System.out.println(panelsize.toString());
+			//debugging
+//			System.out.println("coortop and left " + compDisplay.getXlocationLeft() + " " + compDisplay.getYlocationTop());
+//			System.out.println("coorright and bottom" + compDisplay.getXlocationRight() + " " + compDisplay.getYlocationDown());
+//			System.out.println(speed);
 			
-			if(locationXR >= panelsize.getWidth())
-			{
-				moveByX = -1;
-			}
-			else if(locationXL <= 0)
-			{
-				moveByX = 1;
-			}
+			// this will call the move image method to set the x and y position 
+			// to the one generated randomly
+			compDisplay.moveImageTo(randx.nextInt(xBound),randy.nextInt(yBound));
 			
-			if(locationYT <= 0)
-			{
-				moveByY = 1;
-			}
-			else if(locationYD == panelsize.getHeight())
-			{
-				moveByY = -1;
-			}
-			
-			compDisplay.moveImageBy(moveByX, moveByY);
 		}
 	}
 	
-	// a click listener should be here
+	// 
 	class Clicker implements MouseListener
 	{
 		@Override
@@ -112,72 +98,52 @@ public class ImageMaker extends JFrame
 				
 				if(clicks == 5)
 				{
-					setSpeed(25);
+					setSpeed(1000);
 					createTimer();
 					t.restart();
 					
-//					System.out.println("the speed is now " + speed);
 				}
 				else if(clicks == 10)
 				{
-					setSpeed(15);
+					setSpeed(800);
 					createTimer();
 					t.restart();
-//					System.out.println("the speed is now " + speed);
 				}
 			}
-			
-			
-			
 			
 		}
 		/**
 		 * 	Do nothing methods
 		 */
 		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void mouseReleased(MouseEvent e) {}
 		@Override
-		public void mouseClicked(MouseEvent e) 
-		{
-		}
+		public void mouseClicked(MouseEvent e) {}
 		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void mouseEntered(MouseEvent e) {}
 		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
+		public void mouseExited(MouseEvent e) {}
 	}
 	
 	
-	class ChoiceListener implements ActionListener
+	class MenuListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			if(first.isSelected())
+			if(e.getActionCommand().equalsIgnoreCase("standing"))
 			{
 				compDisplay.changeImage(file1);
 			}
-			else if(second.isSelected())
+			else if(e.getActionCommand().equalsIgnoreCase("waving"))
 			{
 				compDisplay.changeImage(file2);
 			}
-			else if(third.isSelected())
+			else if(e.getActionCommand().equalsIgnoreCase("smiley"))
 			{
 				compDisplay.changeImage(file3);
-			}
-			
+			}			
 		}
-		
 	}
 	
 	
@@ -198,24 +164,33 @@ public class ImageMaker extends JFrame
 	{
 		// instantiate a new component to display
 		compDisplay = new ImageComponent();
+		
+		// Instantiate the random x and y generators
+		randx = new Random();
+		randy = new Random();
+		
+		// creating a border for the area the image will be moving around
 		compDisplay.setBorder(new TitledBorder(new EtchedBorder(), "Play Area"));
-		
-		rListener = new ChoiceListener();
-		
-		// create a label for the score
-		createLabel();
 		
 		// instantiate the divider for the Frame
 		// it will divide the moving window from other parts of 
 		// the program 
 		divider = new JPanel(new BorderLayout());
+		
+		// instantiating the listener for the menu items
+		rListener = new MenuListener();
+		
+		// create a label for the score
+		createLabel();
 
 		// what will go on the top part of the divider.
 		topSection = new JPanel();
 		
+		// calls the method to create the image icons for 
+		// the radio buttons
 		createImages();
 		
-		createButtons();
+		createMenu();
 		
 		// Timer listener instantiation.
 		listener = new TimerListener();
@@ -247,14 +222,14 @@ public class ImageMaker extends JFrame
 		// start the timer
 		t.start();
 		
-		
-		
 	}
 	
 	// creates any labels
 	public void createLabel()
 	{
-		score = new JLabel("Score: ");
+		// instantiates the label for the 
+		// score.
+		score = new JLabel("Score " + 0);
 	}
 	
 	// creates the timer
@@ -264,39 +239,41 @@ public class ImageMaker extends JFrame
 		t = new Timer(speed, listener);
 	}
 	
-	public void createButtons()
-	{
-		buttonPanel = new JPanel(new GridLayout(1,3));
-		buttonPanel.setBorder(new TitledBorder(new EtchedBorder(), "Images"));
-		buttons = new ButtonGroup();
-		
-		first = new JRadioButton("Standing", icon1, true);
-		second = new JRadioButton("Waving",icon2, false);
-		third = new JRadioButton("Smiley",icon3, false);
-		
-		first.addActionListener(rListener);
-		second.addActionListener(rListener);
-		third.addActionListener(rListener);
-		
-		buttons.add(first);
-		buttons.add(second);
-		buttons.add(third);
-		
-		buttonPanel.add(first);
-		buttonPanel.add(second);
-		buttonPanel.add(third);
-		
-		topSection.add(buttonPanel);
-		
-		
-	}
-	
+	/**
+	 * will instantiate the icon images
+	 * using the string file location variables
+	 */
 	public void createImages()
 	{
 		icon1 = new ImageIcon(file1);
 		icon2 = new ImageIcon(file2);
 		icon3 = new ImageIcon(file3);
 		
+	}
+	
+	
+	public void createMenu()
+	{
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		imagesMenu = new JMenu("Images");
+		menuBar.add(imagesMenu);
+		
+		image1 = new JMenuItem("Standing", icon1);
+		image2 = new JMenuItem("Waving", icon2);
+		image3 = new JMenuItem("Smiley", icon3);
+		
+		imagesMenu.add(image1);
+		imagesMenu.add(image2);
+		imagesMenu.add(image3);
+		
+		// adding an action listener to all the radio buttons
+		// so that when a button is selected, the program renders the
+		// image that the user selected.
+		image1.addActionListener(rListener);
+		image2.addActionListener(rListener);
+		image3.addActionListener(rListener);
 	}
 	
 	
