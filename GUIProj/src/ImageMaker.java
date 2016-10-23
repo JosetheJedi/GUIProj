@@ -30,33 +30,43 @@ public class ImageMaker extends JFrame
 	private JMenuItem image1;			// first image item the player can choose from
 	private JMenuItem image2;			// second image item the player can choose from
 	private JMenuItem image3;			// third image item the player can choose from
-	private JMenuItem image4;
-	private JMenuItem image5;
-	private JMenuItem image6;
+	private JMenuItem image4;			// fourth image item the player can choose from
+	private JMenuItem image5;			// fifth image item the player can choose from
+	private JMenuItem image6;			// sixth image item the player can choose from
 	private int clicks = 0;				// the number of clicks the user makes
 	private int speed = 1500;			// the speed of the component
 	private Random randx;				// to generate a random x location
 	private Random randy;				// to generate a random y location
 
-	String file1 = "resources/duke_standing.gif";	// string location of the first image
-	String file2 = "resources/duke_waving.gif";		// string location of the second image
-	String file3 = "resources/smiley.gif";			// string location of the third image
-	String file4 = "resources/bart.png";
+	// String locations of all the images
+	String file1 = "resources/duke_standing.gif";	
+	String file2 = "resources/duke_waving.gif";		
+	String file3 = "resources/smiley.gif";			
+	String file4 = "resources/bart.png";			
 	String file5 = "resources/donut.png";
 	String file6 = "resources/mew.png";
 	
-	ImageIcon icon1;	// will hold the 1st icon of the radio button
-	ImageIcon icon2;	// will hold the 2nd icon of the radio button
-	ImageIcon icon3; 	// will hold the 3rd icon of the radio button
+	// will hold the icons of the menu/image items
+	ImageIcon icon1;	
+	ImageIcon icon2;	
+	ImageIcon icon3; 	
 	ImageIcon icon4;
 	ImageIcon icon5;
 	ImageIcon icon6;
 	
 	ActionListener listener;	// Listener for the time change
 	MouseListener clicking;		// Listener for mouse events
-	ActionListener rListener;	// Listener for radio button events
+	ActionListener rListener;	// Listener for menu item events
 	Timer t;					// object for the timer to keep the pace of the moving image
 	
+	/**
+	 * this class implements ActionListener and overrides 
+	 * the actionPerformed method. every time the timer ticks
+	 * the random generator will make random x and y coordinates
+	 * for the image to move to.
+	 * @author josehernandezuribe
+	 *
+	 */
 	class TimerListener implements ActionListener
 	{
 		// instantiating xbound and ybound
@@ -70,27 +80,31 @@ public class ImageMaker extends JFrame
 			// this bound will be used for the random x generator
 			// so that it won't select a random value bigger than
 			// the panel width
-			xBound = compDisplay.getWidth() - ImageComponent.getBoxWidth();
+			xBound = compDisplay.getWidth() - ImageComponent.getImageWidth();
+			
 			// the yBound is the highest position y can be
 			// this bound will be used for the random y generator
 			// so that it won't select a random value bigger than
 			// the panel height
-			yBound = compDisplay.getHeight() - ImageComponent.getBoxHeight();
-			
-			
-			//debugging
-//			System.out.println("coortop and left " + compDisplay.getXlocationLeft() + " " + compDisplay.getYlocationTop());
-//			System.out.println("coorright and bottom" + compDisplay.getXlocationRight() + " " + compDisplay.getYlocationDown());
-//			System.out.println(speed);
+			yBound = compDisplay.getHeight() - ImageComponent.getImageHeight();
 			
 			// this will call the move image method to set the x and y position 
 			// to the one generated randomly
 			compDisplay.moveImageTo(randx.nextInt(xBound),randy.nextInt(yBound));
-			
 		}
 	}
 	
-	// 
+	/**
+	 * This class implements MouseListener and listens for every time
+	 * the user pressed down on the mouse. 
+	 * When the mouse is clicked the even listener gets the location
+	 * of the click and compares it to the area in which the image covered.
+	 * if the mouse clicked in the same area that the image covered, then
+	 * the click counter is incremented. When the click counter reaches 5 or 10
+	 * the speed at which the image moves, is changed to a faster rate.
+	 * @author josehernandezuribe
+	 *
+	 */
 	class Clicker implements MouseListener
 	{
 		@Override
@@ -110,7 +124,6 @@ public class ImageMaker extends JFrame
 					setSpeed(1000);
 					createTimer();
 					t.restart();
-					
 				}
 				else if(clicks == 10)
 				{
@@ -119,7 +132,6 @@ public class ImageMaker extends JFrame
 					t.restart();
 				}
 			}
-			
 		}
 		/**
 		 * 	Do nothing methods
@@ -134,7 +146,18 @@ public class ImageMaker extends JFrame
 		public void mouseExited(MouseEvent e) {}
 	}
 	
-	
+	/**
+	 * this inner class implements ActionListener.
+	 * every time a menu item is selected it checks the action command method
+	 * for the string that it returns.
+	 * certain strings have certain file locations associated with them, 
+	 * so when a user selects a menu item, and a string matches what 
+	 * the getActionCommand method returns, then the file location of that 
+	 * menu item will be passed as an argument to the changeImage method from the 
+	 * object compDisplay of type ImageComponent.
+	 * @author josehernandezuribe
+	 *
+	 */
 	class MenuListener implements ActionListener
 	{
 		@Override
@@ -168,19 +191,24 @@ public class ImageMaker extends JFrame
 	}
 	
 	
-	// increment clicks
+	// This methods purpose is to increment the
+	// clicks the user has landed on the image
 	public void click()
 	{
 		this.clicks += 1;
 	}
 	
-	// set the new speed of the repaint
+	// set the new speed of the moving object
 	public void setSpeed(int s)
 	{
 		this.speed = s;
 	}
 	
-	// constructor
+	/**
+	 * this is the constructor for the class.
+	 * all objects and variables are instantiated through
+	 * method calls in the constructor.
+	 */
 	public ImageMaker()
 	{
 		// instantiate a new component to display
@@ -211,6 +239,7 @@ public class ImageMaker extends JFrame
 		// the radio buttons
 		createImages();
 		
+		// calls createMenu to make the menu bar and items
 		createMenu();
 		
 		// Timer listener instantiation.
@@ -239,13 +268,11 @@ public class ImageMaker extends JFrame
 		// adding the divider into the JFrame
 		add(divider);
 		
-		
 		// start the timer
 		t.start();
-		
 	}
 	
-	// creates any labels
+	// creates the score label
 	public void createLabel()
 	{
 		// instantiates the label for the 
@@ -275,15 +302,24 @@ public class ImageMaker extends JFrame
 		
 	}
 	
-	
+	/**
+	 * this method will Instantiate the object menuBar of type JMenuBar
+	 * and set it's menu items for the user to choose from.
+	 */
 	public void createMenu()
 	{
 		menuBar = new JMenuBar();
+		
+		// sets the menuBar as the JMenuBar of the JFrame
 		setJMenuBar(menuBar);
 		
+		// instantiates the images menu.
 		imagesMenu = new JMenu("Images");
+		
+		// adds the images menu to the menu bar.
 		menuBar.add(imagesMenu);
 		
+		// sets the string values for the image items and the icon as well.
 		image1 = new JMenuItem("Standing", icon1);
 		image2 = new JMenuItem("Waving", icon2);
 		image3 = new JMenuItem("Smiley", icon3);
@@ -291,6 +327,7 @@ public class ImageMaker extends JFrame
 		image5 = new JMenuItem("Donut", icon5);
 		image6 = new JMenuItem("Mew", icon6);
 		
+		// adds the image items to the images menu
 		imagesMenu.add(image1);
 		imagesMenu.add(image2);
 		imagesMenu.add(image3);
@@ -298,8 +335,8 @@ public class ImageMaker extends JFrame
 		imagesMenu.add(image5);
 		imagesMenu.add(image6);
 		
-		// adding an action listener to all the radio buttons
-		// so that when a button is selected, the program renders the
+		// adding an action listener to all the menu items
+		// so that when an item is selected, the program renders the
 		// image that the user selected.
 		image1.addActionListener(rListener);
 		image2.addActionListener(rListener);
@@ -308,6 +345,4 @@ public class ImageMaker extends JFrame
 		image5.addActionListener(rListener);
 		image6.addActionListener(rListener);
 	}
-	
-	
 }
