@@ -1,3 +1,11 @@
+/* Jose Hernandez Uribe
+     October 20, 2016
+     Purpose:	The purpose of this class is to move the image around, tracking
+     			the users clicks, the amount of times the user clicks on the 
+     			image, it will also create a menu of images the user can select from.
+     Inputs: 
+     Output: 
+*/
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

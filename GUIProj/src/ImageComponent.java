@@ -1,3 +1,13 @@
+/* Jose Hernandez Uribe
+     October 20, 2016
+     Purpose: 	This class will draw the image on the screen. It has a method
+     			that another class can call to reposition the image, and 
+     			the borders of the image can be accessed by the getters and setters
+     			that are in this method. The image file is also changed through here
+     			by passing the location of another image to the changeImage method.
+     Inputs: 
+     Output: 
+*/
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
