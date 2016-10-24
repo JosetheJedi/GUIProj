@@ -16,8 +16,7 @@ public class ImagePlayer
 {
 	public static void main(String[] args) 
 	{
-		// a frame object of ImageMaker type that inherits from
-		// JFrame
+		// a frame object of ImageMaker type that inherits from JFrame.
 		JFrame frame = new ImageMaker();
 		
 		// setting the resizability of the program to true
